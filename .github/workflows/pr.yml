@@ -1,0 +1,15 @@
+name: Enforce PR restrictions
+
+on:
+  pull_request:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "PRs should be to 'next' or from 'origin/release-please--branches--next--components--my-package' to main"
+        run: |
+            echo head ${{github.event.pull_request.head.ref}}
+            echo base ${{github.event.pull_request.base.ref}}
+            exit 1
+        if: ${{!(github.event.pull_request.base.ref == 'next') && !(github.event.pull_request.base.ref == 'main' && github.event.pull_request.head.ref == 'release-please--branches--next--components--my-package')}}

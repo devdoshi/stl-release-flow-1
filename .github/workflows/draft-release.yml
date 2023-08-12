@@ -1,0 +1,24 @@
+name: Draft Release
+
+concurrency: "releases"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+on:
+  push:
+    branches:
+      - next
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create or Update Release PR to main
+        uses: devdoshi/release-please-action@main
+        with:
+          command: release-pr
+          release-type: node
+          package-name: my-package
+          default-branch: next

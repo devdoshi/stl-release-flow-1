@@ -1,0 +1,42 @@
+on:
+  push:
+    branches:
+      - main
+
+concurrency: "releases"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+name: release-please
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        with:
+          command: github-release
+          release-type: node
+          package-name: my-package
+          default-branch: main
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: next
+      # This will fail if other commits are pushed to next after next is fetched. You can wrap it with retrying as needed 
+      - name: Update next to match main (keeping any changes that happened in the meantime)
+        run: |
+          git --version
+          REFERENCE_BRANCH=release-please--branches--next--components--my-package
+          git fetch origin main
+          git fetch origin $REFERENCE_BRANCH
+          git fetch origin next
+          git checkout -b main origin/main
+          LAST_SHARED_COMMIT_HASH=$(git merge-base main next)
+          echo $LAST_SHARED_COMMIT_HASH
+          
+        
+        
