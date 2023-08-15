@@ -35,6 +35,6 @@ jobs:
           git fetch origin $REFERENCE_BRANCH
           git fetch origin next
           git checkout -b main origin/main
-          LAST_SHARED_COMMIT_HASH=$(git merge-base next $REFERENCE_BRANCH)
+          LAST_SHARED_COMMIT_HASH=$(git merge-base origin/next origin/$REFERENCE_BRANCH)
           echo $LAST_SHARED_COMMIT_HASH
           git cherry-pick --allow-empty --strategy=ours $LAST_SHARED_COMMIT_HASH..next && git push --verbose --force-with-lease origin main:next || git diff
