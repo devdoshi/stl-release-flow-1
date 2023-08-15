@@ -37,4 +37,14 @@ jobs:
           git checkout -b main origin/main
           LAST_SHARED_COMMIT_HASH=$(git merge-base origin/next origin/$REFERENCE_BRANCH)
           echo $LAST_SHARED_COMMIT_HASH
-          git cherry-pick --allow-empty --strategy=ours $LAST_SHARED_COMMIT_HASH..next && git push --verbose --force-with-lease origin main:next || git diff
+          CHANGE_COUNT=$(git rev-parse --count $LAST_SHARED_COMMIT_HASH..next)
+          echo $CHANGE_COUNT
+          if [[ "$CHANGE_COUNT" -eq "0" ]]; 
+          then
+            echo "no new changes on next"    
+          else
+            echo "$CHANGE_COUNT new changes on next"
+            git cherry-pick --allow-empty $LAST_SHARED_COMMIT_HASH..next
+          fi
+
+          git push --verbose --force-with-lease origin main:next
