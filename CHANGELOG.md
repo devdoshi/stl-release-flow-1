@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.0.0](https://github.com/devdoshi/stl-release-flow-1/compare/v2.5.0...v3.0.0) (2023-08-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* breaking change ([#16](https://github.com/devdoshi/stl-release-flow-1/issues/16))
+
+### Features
+
+* breaking change ([#16](https://github.com/devdoshi/stl-release-flow-1/issues/16)) ([371045f](https://github.com/devdoshi/stl-release-flow-1/commit/371045fee9feddc84d4e91d8830cbb8292ba24af))
+
 ## [2.5.0](https://github.com/devdoshi/stl-release-flow-1/compare/v2.4.0...v2.5.0) (2023-08-15)
 
 
