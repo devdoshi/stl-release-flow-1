@@ -26,7 +26,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: next
-      # This will fail if other commits are pushed to next after next is fetched. You can wrap it with retrying as needed 
+      # This will fail if other commits are pushed to next after next is fetched. You can wrap it with retrying as needed
       - name: Update next to match main (keeping any changes that happened in the meantime)
         run: |
           git --version
@@ -35,8 +35,6 @@ jobs:
           git fetch origin $REFERENCE_BRANCH
           git fetch origin next
           git checkout -b main origin/main
-          LAST_SHARED_COMMIT_HASH=$(git merge-base main next)
+          LAST_SHARED_COMMIT_HASH=$(git merge-base next $REFERENCE_BRANCH)
           echo $LAST_SHARED_COMMIT_HASH
-          
-        
-        
+          git cherry-pick --allow-empty --strategy=ours $LAST_SHARED_COMMIT_HASH..next && git push --verbose --force-with-lease origin main:next || git diff
