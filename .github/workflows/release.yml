@@ -34,11 +34,12 @@ jobs:
           git fetch origin main
           git fetch origin $REFERENCE_BRANCH
           git fetch origin next
-          git checkout -b main origin/main
+          git merge-base origin/next origin/$REFERENCE_BRANCH
           LAST_SHARED_COMMIT_HASH=$(git merge-base origin/next origin/$REFERENCE_BRANCH)
           echo $LAST_SHARED_COMMIT_HASH
           CHANGE_COUNT=$(git rev-parse --count $LAST_SHARED_COMMIT_HASH..next)
           echo $CHANGE_COUNT
+          git checkout -b main origin/main
           if [[ "$CHANGE_COUNT" -eq "0" ]]; 
           then
             echo "no new changes on next"    
