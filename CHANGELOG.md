@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.0](https://github.com/devdoshi/stl-release-flow-1/compare/v2.3.0...v2.4.0) (2023-08-15)
+
+
+### Features
+
+* wip 1149 ([4649c53](https://github.com/devdoshi/stl-release-flow-1/commit/4649c53aa39c88d4fc4ceeb65d4f7eeb2d776b2c))
+
 ## [2.3.0](https://github.com/devdoshi/stl-release-flow-1/compare/v2.2.2...v2.3.0) (2023-08-15)
 
 
