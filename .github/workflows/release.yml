@@ -31,18 +31,23 @@ jobs:
         run: |
           git --version
           REFERENCE_BRANCH=release-please--branches--next--components--my-package
+          
           git fetch origin main
           git fetch origin $REFERENCE_BRANCH
           git fetch origin next
-          git merge-base next $REFERENCE_BRANCH
+          
           git checkout -b main origin/main
           git checkout -b $REFERENCE_BRANCH origin/$REFERENCE_BRANCH
           git checkout -b next origin/next
+          
+          git merge-base next $REFERENCE_BRANCH
           LAST_SHARED_COMMIT_HASH=$(git merge-base next $REFERENCE_BRANCH)
           echo $LAST_SHARED_COMMIT_HASH
+          
           git rev-list --count $LAST_SHARED_COMMIT_HASH..next
           CHANGE_COUNT=$(git rev-list --count $LAST_SHARED_COMMIT_HASH..next)
           echo $CHANGE_COUNT
+          
           if [[ "$CHANGE_COUNT" -eq "0" ]]; 
           then
             echo "no new changes on next"    
